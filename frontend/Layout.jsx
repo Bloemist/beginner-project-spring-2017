@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
+import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Header from './Header'
+import Guitar from './Guitar'
+import Drum from './Drum'
 import Piano from './Piano'
 import Tune from './Tune'
 import MusicBox from './MusicBox'
@@ -106,13 +109,39 @@ export default class Layout extends Component{
     }
     console.log(`handling note... ${e.key}`);
   };
-
   render(){
+    const TuneWithPiano = () => ( 
+      <div>
+        <Tune />
+        <Piano hn = { this.handleNote } />
+      </div>
+    );
+
+    const nav_style = {
+      width:'100%',
+      backgroundColor:'orange',
+      marginBottom:'5px',
+      textAlign:'center'
+    };
+
+    const side_margins = {
+      marginLeft:'2px',
+      marginRight:'2px'
+    };
+
     return(
       <div>
         <Header />
-        <Tune />
-        <Piano hn = { this.handleNote } />
+        <Router>
+          <div style={nav_style}>
+            <Route exact path={'/'} component={TuneWithPiano} />
+            <Route path={'/drum'} component={Drum} />
+            <Route path={'/guitar'} component={Guitar} />
+            <Link to={'/'} style={side_margins}>Home</Link>
+            <Link to={'/drum'} style={side_margins}>Drum</Link>
+            <Link to={'/guitar'} style={side_margins}>Guitar</Link>
+          </div>
+        </Router> 
         <MusicBox p_data = { this.state } sr = { this.switchRecording }/>
       </div>
     );
