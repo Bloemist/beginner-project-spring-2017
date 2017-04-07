@@ -2,3 +2,39 @@
 * { margin:0; padding:0; }
 html { box-sizing: border-box; }
 *, *:before, *:after { box-sizing: inherit; }
+@keyframes opening {
+  from {width: 0%;}
+  to {width: 100%;}
+}
+@keyframes closing {
+  from {width: 100%;}
+  to {width: 0%;}
+}
+.nav_style_opened {
+  width: 100%;
+  background-color: orange;
+  margin-bottom: 5px;
+  text-align: center;
+  animation: opening 2s linear 0s 1 alternate;
+}
+.nav_style_hidden {
+  width: 0%;
+  background-color: orange;
+  margin-bottom: 5px;
+  text-align: center;
+  animation: closing 2s linear 0s 1 alternate;
+}
+.nav_style_initial {
+  width: 0%;
+  background-color: orange;
+  margin-bottom: 5px;
+  text-align: center; 
+}
+.nav_item_style {
+  margin-left: 2px;
+  margin-right: 2px;
+  visibility: visible;
+}
+.nav_item_style_initial {
+  visibility: hidden;
+}

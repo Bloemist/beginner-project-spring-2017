@@ -30,7 +30,9 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-drag-and-drop": "^2.4.0",
-    "react-keydown": "^1.6.9"
+    "react-keydown": "^1.6.9",
+    "react-router": "^4.0.0",
+    "react-router-dom": "^4.0.0"
   },
   "devDependencies": {
     "babel": "^6.23.0",

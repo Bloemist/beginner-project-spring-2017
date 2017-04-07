@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
+import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Header from './Header'
+import Guitar from './Guitar'
+import Drum from './Drum'
 import Piano from './Piano'
 import Tune from './Tune'
 import MusicBox from './MusicBox'
@@ -16,11 +19,14 @@ export default class Layout extends Component{
       music_four: 'note 4',
       music_five: 'note 5',
       m_index: 0,
-      recording: false
+      recording: false,
+      nav_style:'nav_style_initial',
+      nav_item_style: 'nav_item_style_initial'
     };
     this.handleNote = this.handleNote.bind(this);
     this.switchRecording = this.switchRecording.bind(this);
     this.clearRecord = this.clearRecord.bind(this);
+    this.switchNavBar = this.switchNavBar.bind(this);
   }
   componentDidMount() {
   }
@@ -107,12 +113,48 @@ export default class Layout extends Component{
     console.log(`handling note... ${e.key}`);
   };
 
+  switchNavBar(){
+    if(this.state.nav_style == 'nav_style_hidden' || this.state.nav_style == 'nav_style_initial'){
+      this.setState({
+        nav_style: 'nav_style_opened',
+        nav_item_style: 'nav_item_style'
+      });
+    } else{
+      this.setState({
+        nav_style: 'nav_style_hidden',
+        nav_item_style: 'nav_item_style_initial'
+      }); 
+    }
+  };
+
   render(){
+    const TuneWithPiano = () => ( 
+      <div>
+        <Tune />
+        <Piano hn = { this.handleNote } />
+      </div>
+    );
+
+    const menu_icon_style = {
+      position: 'fixed',
+      top: '5px',
+      left: '5px' 
+    };
+
     return(
       <div>
         <Header />
-        <Tune />
-        <Piano hn = { this.handleNote } />
+        <Router>
+          <div className={this.state.nav_style}>
+            <img style={menu_icon_style} src="/public/menu_icon.png" onClick={this.switchNavBar} />
+            <Route exact path={'/'} component={TuneWithPiano} />
+            <Route path={'/drum'} component={Drum} />
+            <Route path={'/guitar'} component={Guitar} />
+            <Link to={'/'} className={this.state.nav_item_style}>Home</Link>
+            <Link to={'/drum'} className={this.state.nav_item_style}>Drum</Link>
+            <Link to={'/guitar'} className={this.state.nav_item_style}>Guitar</Link>
+          </div>
+        </Router> 
         <MusicBox p_data = { this.state } sr = { this.switchRecording }/>
       </div>
     );
