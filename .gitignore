@@ -37,3 +37,8 @@ jspm_packages
 .node_repl_history
 .tern-port
 bundle.js
+
+# Compiled .js files
+frontend/*.js
+frontend/lib/*.js
+backend/*.js

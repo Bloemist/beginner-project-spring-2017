@@ -147,7 +147,7 @@ export default class Layout extends Component{
       <div>
         <Header />         
           <div className={this.state.nav_style}>
-            <img style={menu_icon_style} src="../public/menu_icon.png" onClick={this.switchNavBar} />
+            <img style={menu_icon_style} src={'../public/menu_icon.png'} onClick={this.switchNavBar} />
           <Switch>
             <div> 
             <Route exact path={'/'} component={TuneWithPiano} />
