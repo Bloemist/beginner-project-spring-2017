@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
+import { Switch } from 'react-router';
 import { Link, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Header from './Header'
@@ -10,8 +11,8 @@ import Tune from './Tune'
 import MusicBox from './MusicBox'
 
 export default class Layout extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       music_one: 'some notes',
       music_two: 'note 2',
@@ -27,6 +28,7 @@ export default class Layout extends Component{
     this.switchRecording = this.switchRecording.bind(this);
     this.clearRecord = this.clearRecord.bind(this);
     this.switchNavBar = this.switchNavBar.bind(this);
+    const { ...rest } = props; 
   }
   componentDidMount() {
   }
@@ -143,18 +145,20 @@ export default class Layout extends Component{
 
     return(
       <div>
-        <Header />
-        <Router>
+        <Header />         
           <div className={this.state.nav_style}>
-            <img style={menu_icon_style} src="/public/menu_icon.png" onClick={this.switchNavBar} />
+            <img style={menu_icon_style} src="../public/menu_icon.png" onClick={this.switchNavBar} />
+          <Switch>
+            <div> 
             <Route exact path={'/'} component={TuneWithPiano} />
             <Route path={'/drum'} component={Drum} />
             <Route path={'/guitar'} component={Guitar} />
             <Link to={'/'} className={this.state.nav_item_style}>Home</Link>
             <Link to={'/drum'} className={this.state.nav_item_style}>Drum</Link>
             <Link to={'/guitar'} className={this.state.nav_item_style}>Guitar</Link>
-          </div>
-        </Router> 
+            </div>
+         </Switch>
+          </div> 
         <MusicBox p_data = { this.state } sr = { this.switchRecording }/>
       </div>
     );
