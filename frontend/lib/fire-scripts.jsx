@@ -125,7 +125,7 @@ PianoRock.prototype.checkSetup = function() {
         'displayed there.');
   }
 };
-
-window.onload = function() {
+export { PianoRock };
+/*window.onload = function() {
   window.pianoRock = new PianoRock();
-};
+};*/

@@ -1,8 +1,28 @@
 import React from 'react';
 import { render } from 'react-dom';
 import {Link, Route, BrowserRouter as R} from 'react-router-dom';
+import {observer} from 'mobx-react';
+import {observable, computed} from 'mobx';
 
 import Layout from './Layout';
+
+@observer
+class Box extends React.Component{
+  @observable price = 10;
+  @observable sold = 2;
+
+  componentDidMount() {
+    const z = () => {
+      setTimeout(() => {
+        this.price++;
+        z();
+      }, 2000);};
+      z();
+    } 
+  render() {
+    return(<div>{this.price * this.sold}</div>);
+  } 
+};
 
 const People = () =>( 
   <ul>
@@ -38,5 +58,12 @@ const App = () => {
   );
 };
 
-render(
+/*export default
+class Application extends React.Component {
+   render() {
+     return(
     <Layout />, document.getElementById('container'));
+   } 
+}*/
+render(
+   (<R><Layout /></R>), document.getElementById('container'));
